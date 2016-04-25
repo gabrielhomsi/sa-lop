@@ -1,19 +1,21 @@
-#ifndef UNTITLED_SIMULATEDANNEALING_H
-#define UNTITLED_SIMULATEDANNEALING_H
+#ifndef SIMULATEDANNEALING_H
+#define SIMULATEDANNEALING_H
 
 #include <vector>
+#include <utility>
+#include "Solution.h"
 
 class SimulatedAnnealing {
 public:
-    std::vector<std::vector<int> > C;
-    int T;
+    std::vector<std::vector<int>> C;
+    double T;
     double decay_factor;
     int iterations;
 
-    SimulatedAnnealing(std::vector<std::vector<int> > &C, int T, double decay_factor, int iterations);
+    SimulatedAnnealing(std::vector<std::vector<int>> &C, double T, double decay_factor, int iterations);
 
-    int run();
+    Solution run(Solution w);
 };
 
 
-#endif //UNTITLED_SIMULATEDANNEALING_H
+#endif

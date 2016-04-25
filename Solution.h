@@ -1,5 +1,5 @@
-#ifndef UNTITLED_SOLUTION_H
-#define UNTITLED_SOLUTION_H
+#ifndef SOLUTION_H
+#define SOLUTION_H
 
 #include <vector>
 
@@ -8,12 +8,16 @@ public:
     std::vector<int> pi;
     int cost;
 
-    static Solution initial(std::vector<std::vector<int> > &C);
+    static Solution initial(std::vector<std::vector<int>> &C);
+
+    Solution(std::vector<int> pi, std::vector<std::vector<int>> &C);
 
     Solution(std::vector<int> pi, int cost);
 
-    Solution neighbor(std::vector<std::vector<int> > &C);
+    int evaluate(std::vector<std::vector<int>> &C);
+
+    Solution neighbor(std::vector<std::vector<int>> &C);
 };
 
 
-#endif //UNTITLED_SOLUTION_H
+#endif

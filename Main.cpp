@@ -1,32 +1,40 @@
 #include <iostream>
+#include <iomanip>
 #include <vector>
-#include <ctime>
 #include "SimulatedAnnealing.h"
 
 using namespace std;
 
 int main() {
-    srand(time(NULL));
-
     int N;
 
     cin >> N;
 
-    vector<vector<int> > C;
+    vector<vector<int>> C;
     C.resize(N + 1);
 
-    for (int i = 1; i < C.size(); i++) {
+    for (unsigned int i = 1; i < C.size(); i++) {
         C[i].resize(C.size());
     }
 
-    for (int i = 1; i < C.size(); i++) {
-        for (int j = 1; j < C[i].size(); j++) {
+    for (unsigned int i = 1; i < C.size(); i++) {
+        for (unsigned int j = 1; j < C[i].size(); j++) {
             cin >> C[i][j];
         }
     }
 
-    SimulatedAnnealing sa(C, 4, 0.99, 250);
-    cout << "Final Cost = " << sa.run();
+    double T = 40;
+    double decay_factor = 0.99;
+    int iterations = 250;
+
+    SimulatedAnnealing sa(C, T, decay_factor, iterations);
+
+    Solution w = Solution::initial(C);
+    Solution w_prime = sa.run(w);
+
+    cout << "Initial cost = " << w.cost << endl;
+    cout << "__Final cost = " << w_prime.cost << endl;
+    cout << "_Improvement = " << ((double) w_prime.cost) / w.cost << endl;
 
     return 0;
 }
