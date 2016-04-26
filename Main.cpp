@@ -23,7 +23,7 @@ int main() {
         }
     }
 
-    double T = 40;
+    double T = 4;
     double decay_factor = 0.99;
     int iterations = 250;
 
