@@ -41,25 +41,41 @@ int Solution::evaluate(std::vector<std::vector<int>> &C) {
 Solution Solution::neighbor(std::vector<std::vector<int>> &C) {
     std::vector<int> pi_prime = this->pi;
 
-    int cost_prime;
-
-    int i;
-    int j;
-
-    do {
-        i = util::random_int(1, (int) pi_prime.size() - 1);
-        j = util::random_int(1, (int) pi_prime.size() - 1);
-    } while (i != j && i > j);
+    int neighborhood_type = util::random_int(1, 2);
 
     int delta = 0;
 
-    for (int k = i; k < j; k++) {
-        delta += C[pi_prime[k + 1]][pi_prime[k]] - C[pi_prime[k]][pi_prime[k + 1]];
+    if (neighborhood_type == 1) { // Relocate Right
+        int i;
+        int j;
 
-        std::swap(pi_prime[k], pi_prime[k + 1]);
+        do {
+            i = util::random_int(1, (int) pi_prime.size() - 1);
+            j = util::random_int(1, (int) pi_prime.size() - 1);
+        } while (i >= j);
+
+        for (int k = i; k < j; k++) {
+            delta += C[pi_prime[k + 1]][pi_prime[k]] - C[pi_prime[k]][pi_prime[k + 1]];
+
+            std::swap(pi_prime[k], pi_prime[k + 1]);
+        }
+    } else if (neighborhood_type == 2) { // Relocate Left
+        int i;
+        int j;
+
+        do {
+            i = util::random_int(2, (int) pi_prime.size());
+            j = util::random_int(2, (int) pi_prime.size());
+        } while (i <= j);
+
+        for (int k = j; k >= i; k--) {
+            delta += C[pi_prime[k - 1]][pi_prime[k]] - C[pi_prime[k]][pi_prime[k - 1]];
+
+            std::swap(pi_prime[k], pi_prime[k - 1]);
+        }
     }
 
-    cost_prime = this->cost + delta;
+    int cost_prime = this->cost + delta;
 
     return Solution(pi_prime, cost_prime);
 }
