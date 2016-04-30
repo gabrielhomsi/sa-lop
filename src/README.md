@@ -1,0 +1,3 @@
+# LinearOrderingProblem
+
+`cmake . && make`

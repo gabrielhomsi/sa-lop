@@ -1,20 +1,27 @@
 #ifndef SIMULATEDANNEALING_H
 #define SIMULATEDANNEALING_H
 
+
 #include <vector>
 #include <utility>
 #include "Solution.h"
+#include "Parameters.h"
 
 class SimulatedAnnealing {
 public:
-    std::vector<std::vector<int>> C;
+    Graph g;
+
     double T;
+
     double decay_factor;
+
     int iterations;
 
-    SimulatedAnnealing(std::vector<std::vector<int>> &C, double T, double decay_factor, int iterations);
+    Parameters parameters;
 
-    Solution run(Solution w);
+    SimulatedAnnealing(Graph &g, double T, double decay_factor, int iterations);
+
+    Solution run(Solution s);
 };
 
 

@@ -1,6 +1,7 @@
 #ifndef RANDOM_H
 #define RANDOM_H
 
+
 namespace util {
     int random_int();
 
@@ -10,5 +11,6 @@ namespace util {
 
     double random_double(double a, double b);
 };
+
 
 #endif
