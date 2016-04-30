@@ -34,7 +34,7 @@ Solution SimulatedAnnealing::run(Solution s) {
                 delta += g.edges[s.pi[k + 1]][s.pi[i]] - g.edges[s.pi[i]][s.pi[k + 1]];
             }
 
-            if (delta >= 0) {
+            if (delta >= 0 || util::random_double() <= pow(e, delta / temperature)) {
                 for (int k = i; k < j; k++) {
                     std::swap(s.pi[k], s.pi[k + 1]);
                 }
