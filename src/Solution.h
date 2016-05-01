@@ -17,8 +17,6 @@ public:
     Solution(std::vector<int> pi, int cost);
 
     int evaluate(Graph &g);
-
-    Solution shuffle(Graph &g);
 };
 
 

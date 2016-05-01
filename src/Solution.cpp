@@ -37,11 +37,3 @@ int Solution::evaluate(Graph &g) {
 
     return cost;
 }
-
-Solution Solution::shuffle(Graph &g) {
-    std::vector<int> pi_prime = this->pi;
-
-    std::random_shuffle(pi_prime.begin() + 1, pi_prime.end());
-
-    return Solution(pi_prime, g);
-}

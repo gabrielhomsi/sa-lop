@@ -6,6 +6,8 @@
 #include <cmath>
 #include <iostream>
 
+using namespace std;
+
 SimulatedAnnealing::SimulatedAnnealing(Graph &g, double T, double decay_factor,
                                        int iterations) {
     this->g = g;
@@ -24,25 +26,37 @@ Solution SimulatedAnnealing::run(Solution s) {
             int j;
 
             do {
-                i = util::random_int(1, (int) s.pi.size() - 1);
-                j = util::random_int(1, (int) s.pi.size() - 1);
-            } while (i >= j);
+                i = util::random_int(1, (int) s.pi.size());
+                j = util::random_int(1, (int) s.pi.size());
+            } while (i == j);
 
             int delta = 0;
 
-            for (int k = i; k < j; k++) {
-                delta += g.edges[s.pi[k + 1]][s.pi[i]] - g.edges[s.pi[i]][s.pi[k + 1]];
+            if (i < j) { // Delta for relocateRight
+                for (int k = i + 1; k < j; k++) {
+                    delta += g.edges[s.pi[k]][s.pi[i]] - g.edges[s.pi[i]][s.pi[k]];
+                }
+            } else { // Delta for relocateLeft
+                for (int k = j; k > i; k--) {
+                    delta += g.edges[s.pi[k]][s.pi[i]] - g.edges[s.pi[i]][s.pi[k]];
+                }
             }
 
             if (delta >= 0 || util::random_double() <= pow(e, delta / temperature)) {
-                for (int k = i; k < j; k++) {
-                    std::swap(s.pi[k], s.pi[k + 1]);
+                if (i < j) { // relocateRight
+                    for (int k = i + 1; k < j; k++) {
+                        swap(s.pi[k - 1], s.pi[k]);
+                    }
+                } else { // relocateLeft
+                    for (int k = j; k > i; k--) {
+                        swap(s.pi[k - 1], s.pi[k]);
+                    }
                 }
 
                 s.cost += delta;
 
                 if (!parameters.silent) {
-                    std::cout << "[SA] " << s.cost << std::endl;
+                    cout << "[SA] " << s.cost << endl;
                 }
             }
         }
