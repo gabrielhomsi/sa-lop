@@ -11,8 +11,10 @@ void Parameters::load(int argc, char** argv)
 
     description.add_options()
             ("help", "Display this help text and exit")
-            ("sa", "Simulated Annealing")
 
+            ("instance", po::value<string>()->required(), "Path to instance file")
+
+            ("sa", "Simulated Annealing")
             ("sa-temperature", po::value<double>(), "Simulated Annealing initial temperature")
             ("sa-decay-factor", po::value<double>(), "Simulated Annealing decay factor")
             ("sa-iterations", po::value<int>(), "Simulated Annealing iterations")

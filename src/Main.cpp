@@ -12,6 +12,9 @@ using namespace std;
 using namespace std::chrono;
 
 int main(int argc, char **argv) {
+    Parameters &parameters = Parameters::getInstance();
+    parameters.load(argc, argv);
+
     Graph g;
 
     g.read();
@@ -19,9 +22,6 @@ int main(int argc, char **argv) {
     Summary summary(g);
 
     high_resolution_clock::time_point t1 = high_resolution_clock::now();
-
-    Parameters &parameters = Parameters::getInstance();
-    parameters.load(argc, argv);
 
     if (parameters.vm.count("sa")) {
         double T = parameters.vm["sa-temperature"].as<double>();
@@ -33,9 +33,7 @@ int main(int argc, char **argv) {
         Solution initial_w = Solution::initial(g);
         Solution best_w = sa.run(initial_w);
 
-        cout << T << ", " << decay_factor << ", " << iterations << ", ";
-
-        summary.show(initial_w, best_w);
+        summary.show(best_w, t1);
     } else if (parameters.vm.count("ils")) {
         int iterations = parameters.vm["ils-iterations"].as<int>();
         int ls_move_strategy = parameters.vm["ils-ls-move-strategy"].as<int>();
@@ -45,7 +43,7 @@ int main(int argc, char **argv) {
         Solution initial_w = Solution::initial(g);
         Solution best_w = ils.run(initial_w);
 
-        summary.show(initial_w, best_w);
+        summary.show(best_w, t1);
     } else if (parameters.vm.count("ls")) {
         int move_strategy = parameters.vm["ls-move-strategy"].as<int>();
 
@@ -54,16 +52,8 @@ int main(int argc, char **argv) {
         Solution initial_w = Solution::initial(g);
         Solution best_w = localSearch.run(initial_w);
 
-        summary.show(initial_w, best_w);
+        summary.show(best_w, t1);
     }
-
-    high_resolution_clock::time_point t2 = high_resolution_clock::now();
-
-    auto duration = duration_cast<microseconds>(t2 - t1).count();
-
-//    cout << "Execution time: " << duration * 1e-6 << "s" << endl;
-
-    cout << duration * 1e-6 << endl;
 
     return 0;
 }

@@ -3,11 +3,16 @@
 
 
 #include <vector>
+#include "Parameters.h"
 
 class Graph {
 
 public:
     std::vector<std::vector<int>> edges;
+
+    Parameters parameters;
+
+    Graph();
 
     void read();
 };
