@@ -21,7 +21,7 @@ public:
 
     SimulatedAnnealing(Graph &g, double T, double decay_factor, int iterations);
 
-    Solution run(Solution s);
+    Solution run(Solution s_initial);
 };
 
 
