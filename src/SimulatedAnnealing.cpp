@@ -31,42 +31,45 @@ Solution SimulatedAnnealing::run(Solution s_initial) {
             int i;
             int j;
 
-            int neighborhood_type = util::random_int(1, 2);
+            int neighborhood_type = util::random_int(1, 4);
 
-            if (neighborhood_type == 1) { // relocateRight and relocateLeft
-                do {
-                    i = util::random_int(0, (int) s.pi.size() - 1);
-                    j = util::random_int(0, (int) s.pi.size() - 1);
-                } while (i == j);
-            } else if (neighborhood_type == 2) { // shiftRight
+            if (neighborhood_type == 1) { // relocateRight
+                i = util::random_int(0, (int) s.pi.size() - 2);
+                j = util::random_int(i + 1, (int) s.pi.size() - 1);
+            } else if (neighborhood_type == 2) { // relocateLeft
+                i = util::random_int(1, (int) s.pi.size() - 1);
+                j = util::random_int(0, i - 1);
+            } else if (neighborhood_type == 3 || neighborhood_type == 4) { // shiftRight
                 i = util::random_int(0, (int) s.pi.size() - 2);
                 j = i + 1;
-            } else if (neighborhood_type == 3) { // shiftLeft
+            } else if (neighborhood_type == 5 || neighborhood_type == 6) { // shiftLeft
                 i = util::random_int(1, (int) s.pi.size() - 1);
                 j = i - 1;
             } else {
-                cout << "WARNING! unrecognized neighborhood type" << s.cost << endl;
+                cout << "WARNING! unrecognized neighborhood type" << endl;
+
+                exit(1);
             }
 
             int delta = 0;
 
             if (i < j) { // Delta for relocateRight / shiftRight
-                for (int k = i + 1; k < j; k++) {
+                for (int k = i + 1; k <= j; k++) {
                     delta += g.edges[s.pi[k]][s.pi[i]] - g.edges[s.pi[i]][s.pi[k]];
                 }
             } else { // Delta for relocateLeft / shiftLeft
-                for (int k = j; k > i; k--) {
+                for (int k = j; k >= i; k--) {
                     delta += g.edges[s.pi[k]][s.pi[i]] - g.edges[s.pi[i]][s.pi[k]];
                 }
             }
 
-            if (delta >= 0 || util::random_double() <= pow(e, delta / temperature)) {
+            if (delta >= 0) {
                 if (i < j) { // relocateRight shiftRight
-                    for (int k = i + 1; k < j; k++) {
+                    for (int k = i + 1; k <= j; k++) {
                         swap(s.pi[k - 1], s.pi[k]);
                     }
                 } else { // relocateLeft / shiftLeft
-                    for (int k = j; k > i; k--) {
+                    for (int k = j; k >= i; k--) {
                         swap(s.pi[k - 1], s.pi[k]);
                     }
                 }
@@ -84,11 +87,12 @@ Solution SimulatedAnnealing::run(Solution s_initial) {
 
     auto duration = duration_cast<microseconds>(t2 - t1).count() * 1e-6;
 
-    cout << parameters.vm["instance"].as<string>() << ", " <<
-            T << ", " <<
-            decay_factor << ", " <<
-            iterations << ", " <<
-            s.cost << ", " << duration << endl;
+    cout << parameters.vm["instance"].as<string>() << " " <<
+            T << " " <<
+            decay_factor << " " <<
+            iterations << " " <<
+            s.cost << " " <<
+            duration << endl;
 
     if (s.cost != s.evaluate(g)) {
         cout << "WARNING! s.cost != s.evaluate(C)" << endl;

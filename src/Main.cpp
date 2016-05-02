@@ -1,9 +1,8 @@
+#include <chrono>
 #include <iostream>
 #include <iomanip>
 #include "Graph.h"
-#include "Parameters.h"
 #include "SimulatedAnnealing.h"
-#include <chrono>
 
 using namespace std;
 using namespace std::chrono;

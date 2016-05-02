@@ -1,7 +1,5 @@
-#include "Parameters.h"
-
 #include <iostream>
-#include <cstdlib>
+#include "Parameters.h"
 
 using namespace std;
 
@@ -30,5 +28,5 @@ void Parameters::load(int argc, char** argv)
         exit(1);
     }
 
-    silent = vm.count("silent");
+    silent = vm.count("silent") == 1;
 }
