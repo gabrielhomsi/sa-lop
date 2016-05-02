@@ -16,14 +16,14 @@ void Graph::read() {
 
     instance_file >> n;
 
-    edges.resize(n + 1);
+    edges.resize(n);
 
-    for (unsigned int i = 1; i < edges.size(); i++) {
+    for (unsigned int i = 0; i < edges.size(); i++) {
         edges[i].resize(edges.size());
     }
 
-    for (unsigned int i = 1; i < edges.size(); i++) {
-        for (unsigned int j = 1; j < edges[i].size(); j++) {
+    for (unsigned int i = 0; i < edges.size(); i++) {
+        for (unsigned int j = 0; j < edges[i].size(); j++) {
             instance_file >> edges[i][j];
         }
     }

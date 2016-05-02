@@ -26,8 +26,8 @@ Solution SimulatedAnnealing::run(Solution s) {
             int j;
 
             do {
-                i = util::random_int(1, (int) s.pi.size());
-                j = util::random_int(1, (int) s.pi.size());
+                i = util::random_int(0, (int) s.pi.size() - 1);
+                j = util::random_int(0, (int) s.pi.size() - 1);
             } while (i == j);
 
             int delta = 0;

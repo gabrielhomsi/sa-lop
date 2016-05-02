@@ -7,9 +7,7 @@
 Solution Solution::initial(Graph &g) {
     std::vector<int> pi;
 
-    pi.push_back(0);
-
-    for (unsigned int i = 1; i < g.edges.size(); i++) {
+    for (unsigned int i = 0; i < g.edges.size(); i++) {
         pi.push_back(i);
     }
 
@@ -29,7 +27,7 @@ Solution::Solution(std::vector<int> pi, int cost) {
 int Solution::evaluate(Graph &g) {
     int cost = 0;
 
-    for (unsigned int i = 1; i < g.edges.size(); i++) {
+    for (unsigned int i = 0; i < g.edges.size(); i++) {
         for (unsigned int j = i + 1; j < g.edges.size(); j++) {
             cost += g.edges[pi[i]][pi[j]];
         }

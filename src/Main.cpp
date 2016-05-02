@@ -3,8 +3,6 @@
 #include "Graph.h"
 #include "Parameters.h"
 #include "SimulatedAnnealing.h"
-#include "IteratedLocalSearch.h"
-#include "LocalSearch.h"
 #include "Summary.h"
 #include <chrono>
 
@@ -32,25 +30,6 @@ int main(int argc, char **argv) {
 
         Solution initial_w = Solution::initial(g);
         Solution best_w = sa.run(initial_w);
-
-        summary.show(best_w, t1);
-    } else if (parameters.vm.count("ils")) {
-        int iterations = parameters.vm["ils-iterations"].as<int>();
-        int ls_move_strategy = parameters.vm["ils-ls-move-strategy"].as<int>();
-
-        IteratedLocalSearch ils(g, iterations, ls_move_strategy);
-
-        Solution initial_w = Solution::initial(g);
-        Solution best_w = ils.run(initial_w);
-
-        summary.show(best_w, t1);
-    } else if (parameters.vm.count("ls")) {
-        int move_strategy = parameters.vm["ls-move-strategy"].as<int>();
-
-        LocalSearch localSearch(g, move_strategy);
-
-        Solution initial_w = Solution::initial(g);
-        Solution best_w = localSearch.run(initial_w);
 
         summary.show(best_w, t1);
     }

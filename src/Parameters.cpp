@@ -19,13 +19,6 @@ void Parameters::load(int argc, char** argv)
             ("sa-decay-factor", po::value<double>(), "Simulated Annealing decay factor")
             ("sa-iterations", po::value<int>(), "Simulated Annealing iterations")
 
-            ("ils", "Iterated Local Search")
-            ("ils-iterations", po::value<int>(), "ILS iterations")
-            ("ils-ls-move-strategy", po::value<int>(), "ILS move strategy for the Local Search (1- First admissible, 2- Best move)")
-
-            ("ls", "Local Search")
-            ("ls-move-strategy", po::value<int>(), "LS move strategy (1- First admissible, 2- Best move)")
-
             ("silent", "Silent mode");
 
     po::store(po::command_line_parser(argc, argv).options(description).run(), vm);
