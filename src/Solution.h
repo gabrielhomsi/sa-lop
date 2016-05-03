@@ -10,7 +10,7 @@ public:
     std::vector<int> pi;
     int cost;
 
-    static Solution initial(Graph &g);
+    static Solution constructive(Graph &g);
 
     Solution(std::vector<int> pi, Graph &g);
 

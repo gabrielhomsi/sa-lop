@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
         int iterations = parameters.vm["sa-iterations"].as<int>();
 
         SimulatedAnnealing sa(g, T, decay_factor, iterations);
-        Solution s_initial = Solution::initial(g);
+        Solution s_initial = Solution::constructive(g);
 
         sa.run(s_initial);
     }

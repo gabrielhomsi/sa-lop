@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Solution Solution::initial(Graph &g) {
+Solution Solution::constructive(Graph &g) {
     vector<pair<int, double>> s;
 
     for (unsigned int i = 0; i < g.edges.size(); i++) {
