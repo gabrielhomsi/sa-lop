@@ -3,8 +3,7 @@
 
 using namespace std;
 
-void Parameters::load(int argc, char** argv)
-{
+void Parameters::load(int argc, char **argv) {
     po::options_description description("Metaheuristics for the Linear Ordering Problem");
 
     description.add_options()

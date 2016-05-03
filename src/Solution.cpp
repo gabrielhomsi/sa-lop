@@ -1,8 +1,5 @@
 #include "Solution.h"
-#include "Random.h"
-#include <cstdlib>
 #include <iostream>
-#include <algorithm>
 
 Solution Solution::initial(Graph &g) {
     std::vector<int> pi;

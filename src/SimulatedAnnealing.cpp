@@ -1,9 +1,5 @@
 #include "SimulatedAnnealing.h"
-#include "Solution.h"
 #include "Random.h"
-#include "Parameters.h"
-#include <cstdlib>
-#include <cmath>
 #include <iostream>
 #include <chrono>
 
@@ -88,11 +84,11 @@ Solution SimulatedAnnealing::run(Solution s_initial) {
     auto duration = duration_cast<microseconds>(t2 - t1).count() * 1e-6;
 
     cout << parameters.vm["instance"].as<string>() << " " <<
-            T << " " <<
-            decay_factor << " " <<
-            iterations << " " <<
-            s.cost << " " <<
-            duration << endl;
+        T << " " <<
+        decay_factor << " " <<
+        iterations << " " <<
+        s.cost << " " <<
+        duration << endl;
 
     if (s.cost != s.evaluate(g)) {
         cout << "WARNING! s.cost != s.evaluate(C)" << endl;
