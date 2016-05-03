@@ -59,7 +59,7 @@ Solution SimulatedAnnealing::run(Solution s_initial) {
                 }
             }
 
-            if (delta >= 0) {
+            if (delta >= 0 || util::random_double() <= pow(e, delta / temperature)) {
                 if (i < j) { // relocateRight shiftRight
                     for (int k = i + 1; k <= j; k++) {
                         swap(s.pi[k - 1], s.pi[k]);
