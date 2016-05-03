@@ -1,11 +1,33 @@
 #include "Solution.h"
 #include <iostream>
+#include <boost/bind.hpp>
+
+using namespace std;
 
 Solution Solution::initial(Graph &g) {
-    std::vector<int> pi;
+    vector<pair<int, double>> s;
 
     for (unsigned int i = 0; i < g.edges.size(); i++) {
-        pi.push_back(i);
+        int numerator = 0;
+        int denominator = 0;
+
+        for (unsigned int k = 0; k < g.edges.size(); k++) {
+            numerator += g.edges[i][k];
+            denominator += g.edges[k][i];
+        }
+
+        double q = (double) numerator / denominator;
+
+        s.push_back(make_pair(i, q));
+    }
+
+    std::sort(s.begin(), s.end(),
+              boost::bind(&std::pair<int, double>::second, _1) > boost::bind(&std::pair<int, double>::second, _2));
+
+    std::vector<int> pi;
+
+    for (unsigned int i = 0; i < s.size(); i++) {
+        pi.push_back(s[i].first);
     }
 
     return Solution(pi, g);
