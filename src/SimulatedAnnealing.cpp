@@ -33,7 +33,7 @@ Solution SimulatedAnnealing::run(Solution s_initial) {
 
     Move *moves[4] = {&shiftLeftMove, &shiftRightMove, &relocateLeftMove, &relocateRightMove};
 
-    for (double temperature = this->T; temperature > 1; temperature *= this->decay_factor) {
+    for (double temperature = this->T; temperature > 1e-1; temperature *= this->decay_factor) {
         for (int m = 0; m < this->iterations; m++) {
             int move_type = util::random_int(0, 3);
 
@@ -41,7 +41,7 @@ Solution SimulatedAnnealing::run(Solution s_initial) {
 
             int delta = move->evaluate(g, s);
 
-            if (delta >= 0 || util::random_double() <= pow(e, delta / temperature)) {
+            if (delta >= 0 || util::random_double() <= exp(delta / temperature)) {
                 move->move(g, s);
 
                 if (!parameters.silent) {
@@ -55,11 +55,11 @@ Solution SimulatedAnnealing::run(Solution s_initial) {
 
     auto duration = duration_cast<microseconds>(t2 - t1).count() * 1e-6;
 
-    cout << parameters.vm["instance"].as<string>() << " " <<
-    T << " " <<
-    decay_factor << " " <<
-    iterations << " " <<
-    s.cost << " " <<
+    cout << parameters.vm["instance"].as<string>() << ", " <<
+    T << ", " <<
+    decay_factor << ", " <<
+    iterations << ", " <<
+    s.cost << ", " <<
     duration << endl;
 
     if (s.cost != s.evaluate(g)) {

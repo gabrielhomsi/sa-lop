@@ -9,16 +9,16 @@ int RelocateLeftMove::evaluate(Graph &g, Solution &s) {
 
     delta = 0;
 
-    for (int k = j; k >= i; k--) {
-        delta += g.edges[s.pi[k]][s.pi[i]] - g.edges[s.pi[i]][s.pi[k]];
+    for (int k = i - 1; k >= j; k--) {
+        delta += g.edges[s.pi[i]][s.pi[k]] - g.edges[s.pi[k]][s.pi[i]];
     }
 
     return delta;
 }
 
 void RelocateLeftMove::move(Graph &g, Solution &s) {
-    for (int k = j; k >= i; k--) {
-        swap(s.pi[k - 1], s.pi[k]);
+    for (int k = i - 1; k >= j; k--) {
+        swap(s.pi[k + 1], s.pi[k]);
     }
 
     s.cost += delta;

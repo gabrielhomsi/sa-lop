@@ -16,6 +16,8 @@ void Parameters::load(int argc, char **argv) {
             ("sa-decay-factor", po::value<double>(), "Simulated Annealing decay factor")
             ("sa-iterations", po::value<int>(), "Simulated Annealing iterations")
 
+            ("constructive", "Constructive Heuristic")
+
             ("silent", "Silent mode");
 
     po::store(po::command_line_parser(argc, argv).options(description).run(), vm);

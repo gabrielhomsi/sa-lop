@@ -24,6 +24,13 @@ int main(int argc, char **argv) {
         Solution s_initial = Solution::constructive(g);
 
         sa.run(s_initial);
+    } else if (parameters.vm.count("constructive")) {
+        Solution s_trivial = Solution::trivial(g);
+        Solution s_constructive = Solution::constructive(g);
+
+        cout << parameters.vm["instance"].as<string>() << " " <<
+        s_trivial.cost << " " <<
+        s_constructive.cost << endl;
     }
 
     return 0;

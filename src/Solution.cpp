@@ -4,6 +4,16 @@
 
 using namespace std;
 
+Solution Solution::trivial(Graph &g) {
+    vector<int> pi;
+
+    for (unsigned int i = 0; i < g.edges.size(); i++) {
+        pi.push_back(i);
+    }
+
+    return Solution(pi, g);
+}
+
 Solution Solution::constructive(Graph &g) {
     vector<pair<int, double>> s;
 
