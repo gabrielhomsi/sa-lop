@@ -20,8 +20,6 @@ SimulatedAnnealing::SimulatedAnnealing(Graph &g, double T, double decay_factor,
 }
 
 Solution SimulatedAnnealing::run(Solution s_initial) {
-    double e = 2.718281828459045;
-
     Solution s = s_initial;
 
     high_resolution_clock::time_point t1 = high_resolution_clock::now();
