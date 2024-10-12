@@ -1,1 +1,3 @@
-# A Simulated Annealing Metaheuristic for the Linear Ordering Problem
+# Linear Ordering Problem
+
+A C++ simulated annealing metaheuristic for the Linear Ordering Problem
